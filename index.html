@@ -1,19 +1,241 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEB Dev</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Digital</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet"> 
-    <link rel="stylesheet" href="css/fontawesome.css">
-    <link rel="stylesheet" href="js/bootstrap.mini.js">
-    <link rel="stylesheet" href="js/bootstrap.js">
-    <!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="css/fontawesome.css" type="text/css" />
+    <link rel="stylesheet" href="" type="text/css" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // grab the initial top offset of the navigation 
+            var stickyNavTop = $('.nav').offset().top;
+
+            // our function that decides weather the navigation bar should have "fixed" css position or not.
+            var stickyNav = function () {
+                var scrollTop = $(window).scrollTop(); // our current vertical position from the top
+
+                // if we've scrolled more than the navigation, change its position to fixed to stick to top,
+                // otherwise change it back to relative
+                if (scrollTop > stickyNavTop) {
+                    $('.nav').addClass('sticky');
+                } else {
+                    $('.nav').removeClass('sticky');
+                }
+            };
+
+            stickyNav();
+            // and run it again every time you scroll
+            $(window).scroll(function () {
+                stickyNav();
+            });
+        });
+    </script>
+
+    <script>
+        // DOM ready
+        $(function () {
+
+            // Create the dropdown base
+            $("<select />").appendTo("nav");
+
+            // Create default option "Go to..."
+            $("<option />", {
+                "selected": "selected",
+                "value": "",
+                "text": "Go to..."
+            }).appendTo("nav select");
+
+            // Populate dropdown with menu items
+            $("nav a").each(function () {
+                var el = $(this);
+                $("<option />", {
+                    "value": el.attr("href"),
+                    "text": el.text()
+                }).appendTo("nav select");
+            });
+
+            // To make dropdown actually work
+
+            $("nav select").change(function () {
+                window.location = $(this).find("option:selected").val();
+            });
+
+        });
+    </script>
+
+    <script>
+
+
+        var TxtRotate = function (el, toRotate, period) {
+            this.toRotate = toRotate;
+            this.el = el;
+            this.loopNum = 0;
+            this.period = parseInt(period, 10) || 2000;
+            this.txt = '';
+            this.tick();
+            this.isDeleting = false;
+        };
+
+        TxtRotate.prototype.tick = function () {
+            var i = this.loopNum % this.toRotate.length;
+            var fullTxt = this.toRotate[i];
+
+            if (this.isDeleting) {
+                this.txt = fullTxt.substring(0, this.txt.length - 1);
+            } else {
+                this.txt = fullTxt.substring(0, this.txt.length + 1);
+            }
+
+            this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
+
+            var that = this;
+            var delta = 300 - Math.random() * 100;
+
+            if (this.isDeleting) { delta /= 2; }
+
+            if (!this.isDeleting && this.txt === fullTxt) {
+                delta = this.period;
+                this.isDeleting = true;
+            } else if (this.isDeleting && this.txt === '') {
+                this.isDeleting = false;
+                this.loopNum++;
+                delta = 500;
+            }
+
+            setTimeout(function () {
+                that.tick();
+            }, delta);
+        };
+
+        window.onload = function () {
+            var elements = document.getElementsByClassName('txt-rotate');
+            for (var i = 0; i < elements.length; i++) {
+                var toRotate = elements[i].getAttribute('data-rotate');
+                var period = elements[i].getAttribute('data-period');
+                if (toRotate) {
+                    new TxtRotate(elements[i], JSON.parse(toRotate), period);
+                }
+            }
+            // INJECT CSS
+            var css = document.createElement("style");
+            css.type = "text/css";
+            css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid #666 }";
+            document.body.appendChild(css);
+        };
+
+
+    </script>
 
 </head>
+
 <body>
-Hii
+    <header id="header" class="nav">
+        <div class="user-tools">
+            <div class="wrapper">
+                <div class="row">
+                    <div class="box-50">
+                        <div class="box-paddingS">
+                            <div class="newsflash"> Call Landmark Homes for <span class="txt-rotate" data-period="2000"
+                                    data-rotate='[ "Onyx Collection",  "Bath Remodeling" , "DIY Bath Remodeling"]'></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-50">
+                        <div class="box-paddingS">
+                            <div class="socials">
+                                <ul class="toplinks">
+                                    <li><a class="topBar" href="tel:9102129030"><i class="fa fa-phone"></i> Talk with an
+                                            Expert: <span style="font-size: 15px;font-weight: 700">9102129030</span></a>
+                                    </li>
+
+                                    <li><a href="#" target="_blank"><i class="fa fa-envelope" alt="Email"></i></a></li>
+                                    <li><a href="" target="_blank"><i class="fa fa-facebook" alt="Facebook"></i></a>
+                                    </li>
+                                    <li><a href="" target="_blank"><i class="fa fa-linkedin" alt="Linkedin"></i></a>
+                                    </li>
+                                    <li><a href="" target="_blank"><i class="fa fa-instagram" alt="Instagram"></i></a>
+                                    </li>
+                                    <li><a href="" target="_blank"><i class="fa fa-youtube" alt="Youtube"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="space"></div>
+                        </div>
+                    </div>
+                    <div class="space"></div>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="header-wrap">
+                <div class="logo"><a href="index.html"><img src="images/logo DG 1.jpg" class="img-responsive"
+                            alt="logo"></a></div>
+
+                <div class="head-col">
+
+                    <div id="topmenu">
+
+                        <nav id="topnav" class="moduletable_dropdown">
+                            <ul class="menu">
+                                <li class="current-menu-item"><a href="">Home</a></li>
+                                <li><a href="">About</a></li>
+                                <li class="parent"><a href="">Services</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="">Bathroom Remodeling</a></li>
+                                        <li><a href="">Tub-To-Shower Conversions</a></li>
+                                        <li><a href="">Tub Surrounds</a></li>
+                                        <li><a href="">Shower Base</a></li>
+                                        <li><a href="">Vanity Tops</a></li>
+                                    </ul>
+                                </li>
+                                <li class="parent"><a href="">Onyx</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="">Gloss Color Options</a></li>
+                                        <li><a href="">Shower Bases</a></li>
+                                        <li><a href="">Shower Wall Panels</a></li>
+                                        <li><a href="">Lavatories &amp; Vanities</a></li>
+                                        <li><a href="">Accessories &amp; Trim</a></li>
+                                        <li><a href="">Installation Guides</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="">Gallery</a></li>
+                                <li class="parent"><a href="">Locations</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="">Chesterfield</a></li>
+                                        <li><a href="">Midlothian</a></li>
+                                        <li><a href="">Richmond</a></li>
+                                        <li><a href="">Crozier</a></li>
+                                        <li><a href="">Ashland</a></li>
+                                        <li><a href="">Mechanicsville</a></li>
+                                        <li><a href="">Studeley</a></li>
+                                        <li><a href="">Glen Allen Henrico</a></li>
+                                    </ul>
+                                </li>
+
+                                <li><a href="">Contact</a></li>
+                                <li class="apply-online"><a href="">Get a Free Quote</a></li>
+                            </ul>
+                        </nav>
+
+                        <div class="space"></div>
+                    </div>
+                </div>
+
+
+                <div class="space"></div>
+
+            </div>
+        </div>
+
+
+
+    </header>
 </body>
+
 </html>
