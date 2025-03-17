@@ -1,241 +1,916 @@
-<!DOCTYPE html
-    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Digital</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="css/fontawesome.css" type="text/css" />
-    <link rel="stylesheet" href="" type="text/css" />
-    <link rel="stylesheet" href="css/style.css" type="text/css" />
-    <script type="text/javascript">
-        $(document).ready(function () {
-            // grab the initial top offset of the navigation 
-            var stickyNavTop = $('.nav').offset().top;
 
-            // our function that decides weather the navigation bar should have "fixed" css position or not.
-            var stickyNav = function () {
-                var scrollTop = $(window).scrollTop(); // our current vertical position from the top
-
-                // if we've scrolled more than the navigation, change its position to fixed to stick to top,
-                // otherwise change it back to relative
-                if (scrollTop > stickyNavTop) {
-                    $('.nav').addClass('sticky');
-                } else {
-                    $('.nav').removeClass('sticky');
-                }
-            };
-
-            stickyNav();
-            // and run it again every time you scroll
-            $(window).scroll(function () {
-                stickyNav();
-            });
-        });
-    </script>
-
-    <script>
-        // DOM ready
-        $(function () {
-
-            // Create the dropdown base
-            $("<select />").appendTo("nav");
-
-            // Create default option "Go to..."
-            $("<option />", {
-                "selected": "selected",
-                "value": "",
-                "text": "Go to..."
-            }).appendTo("nav select");
-
-            // Populate dropdown with menu items
-            $("nav a").each(function () {
-                var el = $(this);
-                $("<option />", {
-                    "value": el.attr("href"),
-                    "text": el.text()
-                }).appendTo("nav select");
-            });
-
-            // To make dropdown actually work
-
-            $("nav select").change(function () {
-                window.location = $(this).find("option:selected").val();
-            });
-
-        });
-    </script>
-
-    <script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Landmark Homes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/font-awesome.css" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="css/zoomslider.css" />
+  <link rel="stylesheet" type="text/css" href="css/slick-theme.css" />
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="css/responsive.css" type="text/css" />
 
 
-        var TxtRotate = function (el, toRotate, period) {
-            this.toRotate = toRotate;
-            this.el = el;
-            this.loopNum = 0;
-            this.period = parseInt(period, 10) || 2000;
-            this.txt = '';
-            this.tick();
-            this.isDeleting = false;
-        };
+  <script src="js/jquery-1.11.3.min.js"></script>
+  <script src="js/jquery-scrolltofixed-min.js"></script>
 
-        TxtRotate.prototype.tick = function () {
-            var i = this.loopNum % this.toRotate.length;
-            var fullTxt = this.toRotate[i];
+  <script type="text/javascript">
+    $(document).ready(function () {
+      // grab the initial top offset of the navigation 
+      var stickyNavTop = $('.nav').offset().top;
 
-            if (this.isDeleting) {
-                this.txt = fullTxt.substring(0, this.txt.length - 1);
-            } else {
-                this.txt = fullTxt.substring(0, this.txt.length + 1);
+      // our function that decides weather the navigation bar should have "fixed" css position or not.
+      var stickyNav = function () {
+        var scrollTop = $(window).scrollTop(); // our current vertical position from the top
+
+        // if we've scrolled more than the navigation, change its position to fixed to stick to top,
+        // otherwise change it back to relative
+        if (scrollTop > stickyNavTop) {
+          $('.nav').addClass('sticky');
+        } else {
+          $('.nav').removeClass('sticky');
+        }
+      };
+
+      stickyNav();
+      // and run it again every time you scroll
+      $(window).scroll(function () {
+        stickyNav();
+      });
+    });
+  </script>
+  <script>
+    // DOM ready
+    $(function () {
+
+      // Create the dropdown base
+      $("<select />").appendTo("nav");
+
+      // Create default option "Go to..."
+      $("<option />", {
+        "selected": "selected",
+        "value": "",
+        "text": "Go to..."
+      }).appendTo("nav select");
+
+      // Populate dropdown with menu items
+      $("nav a").each(function () {
+        var el = $(this);
+        $("<option />", {
+          "value": el.attr("href"),
+          "text": el.text()
+        }).appendTo("nav select");
+      });
+
+      // To make dropdown actually work
+
+      $("nav select").change(function () {
+        window.location = $(this).find("option:selected").val();
+      });
+
+    });
+  </script>
+  <script>
+
+
+    var TxtRotate = function (el, toRotate, period) {
+      this.toRotate = toRotate;
+      this.el = el;
+      this.loopNum = 0;
+      this.period = parseInt(period, 10) || 2000;
+      this.txt = '';
+      this.tick();
+      this.isDeleting = false;
+    };
+
+    TxtRotate.prototype.tick = function () {
+      var i = this.loopNum % this.toRotate.length;
+      var fullTxt = this.toRotate[i];
+
+      if (this.isDeleting) {
+        this.txt = fullTxt.substring(0, this.txt.length - 1);
+      } else {
+        this.txt = fullTxt.substring(0, this.txt.length + 1);
+      }
+
+      this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
+
+      var that = this;
+      var delta = 300 - Math.random() * 100;
+
+      if (this.isDeleting) { delta /= 2; }
+
+      if (!this.isDeleting && this.txt === fullTxt) {
+        delta = this.period;
+        this.isDeleting = true;
+      } else if (this.isDeleting && this.txt === '') {
+        this.isDeleting = false;
+        this.loopNum++;
+        delta = 500;
+      }
+
+      setTimeout(function () {
+        that.tick();
+      }, delta);
+    };
+
+    window.onload = function () {
+      var elements = document.getElementsByClassName('txt-rotate');
+      for (var i = 0; i < elements.length; i++) {
+        var toRotate = elements[i].getAttribute('data-rotate');
+        var period = elements[i].getAttribute('data-period');
+        if (toRotate) {
+          new TxtRotate(elements[i], JSON.parse(toRotate), period);
+        }
+      }
+      // INJECT CSS
+      var css = document.createElement("style");
+      css.type = "text/css";
+      css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid #666 }";
+      document.body.appendChild(css);
+    };
+
+
+  </script>
+  <script src="js/bootstrap.js"></script>
+  <script type="text/javascript" src="js/modernizr-2.6.2.min.js"></script>
+
+  <script type="text/javascript" src="js/slick.min.js"></script>
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+
+      $('.items').slick({
+        dots: true,
+        infinite: true,
+        speed: 800,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 5,
+              slidesToScroll: 1,
+              infinite: true,
+              dots: true
             }
-
-            this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
-
-            var that = this;
-            var delta = 300 - Math.random() * 100;
-
-            if (this.isDeleting) { delta /= 2; }
-
-            if (!this.isDeleting && this.txt === fullTxt) {
-                delta = this.period;
-                this.isDeleting = true;
-            } else if (this.isDeleting && this.txt === '') {
-                this.isDeleting = false;
-                this.loopNum++;
-                delta = 500;
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 4,
+              slidesToScroll: 1
             }
-
-            setTimeout(function () {
-                that.tick();
-            }, delta);
-        };
-
-        window.onload = function () {
-            var elements = document.getElementsByClassName('txt-rotate');
-            for (var i = 0; i < elements.length; i++) {
-                var toRotate = elements[i].getAttribute('data-rotate');
-                var period = elements[i].getAttribute('data-period');
-                if (toRotate) {
-                    new TxtRotate(elements[i], JSON.parse(toRotate), period);
-                }
+          },
+          {
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 1
             }
-            // INJECT CSS
-            var css = document.createElement("style");
-            css.type = "text/css";
-            css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid #666 }";
-            document.body.appendChild(css);
-        };
+          }
 
-
-    </script>
-
+        ]
+      });
+    });	
+  </script>
 </head>
 
 <body>
-    <header id="header" class="nav">
-        <div class="user-tools">
-            <div class="wrapper">
+  <header id="header" class="nav">
+    <div class="user-tools">
+      <div class="wrapper">
+        <div class="row">
+          <div class="box-50">
+            <div class="box-paddingS">
+              <div class="newsflash"> Call Landmark Homes for <span class="txt-rotate" data-period="2000"
+                  data-rotate='[ "Onyx Collection",  "Bath Remodeling" , "DIY Bath Remodeling"]'></span></div>
+            </div>
+          </div>
+          <div class="box-50">
+            <div class="box-paddingS">
+              <div class="socials">
+                <ul class="toplinks">
+                  <li><a class="topBar" href="tel:9102129030"><i class="fa fa-phone"></i> Talk with an Expert: <span
+                        style="font-size: 15px;font-weight: 700">9102129030</span></a></li>
+
+                  <li><a href="#" target="_blank"><i class="fa fa-envelope" alt="Email"></i></a></li>
+                  <li><a href="" target="_blank"><i class="fa fa-facebook" alt="Facebook"></i></a></li>
+                  <li><a href="" target="_blank"><i class="fa fa-linkedin" alt="Linkedin"></i></a></li>
+                  <li><a href="" target="_blank"><i class="fa fa-instagram" alt="Instagram"></i></a></li>
+                  <li><a href="" target="_blank"><i class="fa fa-youtube" alt="Youtube"></i></a></li>
+                </ul>
+              </div>
+              <div class="clear"></div>
+            </div>
+          </div>
+          <div class="clear"></div>
+        </div>
+      </div>
+    </div>
+    <div class="wrapper">
+      <div class="header-wrap">
+        <div class="logo"><a href="index.html"><img src="images/logo DG 1.jpg" class="img-responsive" alt=""></a></div>
+
+        <div class="head-col">
+
+          <div id="topmenu">
+
+            <nav id="topnav" class="moduletable_dropdown">
+              <ul class="menu">
+                <li class="current-menu-item"><a href="">About Us</a></li>
+                <!-- <li><a href="">Our Services</a></li> -->
+                <li class="parent"><a href="">Our Services</a>
+                  <ul class="sub-menu">
+                    <li><a href="">XYZ</a></li>
+                    <li><a href="">XYZ</a></li>
+                    <li><a href="">XYZ</a></li>
+                    <li><a href="">XYZ</a></li>
+                    <li><a href="">XYZ</a></li>
+                  </ul>
+                </li>
+                <li class="parent"><a href="">Internship </a>
+                  <ul class="sub-menu">
+                    <li><a href="">ABC</a></li>
+                    <li><a href="">ABC</a></li>
+                    <li><a href="">ABC</a></li>
+                    <li><a href="">ABC</a></li>
+                    <li><a href="">ABC &amp; DEF</a></li>
+                    <li><a href="">ABC</a></li>
+                  </ul>
+                </li>
+                <li><a href="">Join Us</a></li>
+                <!-- <li class="parent"><a href="">Locations</a>
+<ul class="sub-menu">
+<li><a href="">Chesterfield</a></li>
+<li><a href="">Midlothian</a></li>
+<li><a href="">Richmond</a></li>
+<li><a href="">Crozier</a></li>
+<li><a href="">Ashland</a></li>
+<li><a href="">Mechanicsville</a></li>
+<li><a href="">Studeley</a></li>
+<li><a href="">Glen Allen Henrico</a></li>
+</ul>	
+</li> -->
+
+                <li><a href="">Contact</a></li>
+                <li class="apply-online"><a href="">Get a Free Quote</a></li>
+              </ul>
+            </nav>
+
+            <div class="clear"></div>
+          </div>
+        </div>
+
+
+        <div class="clear"></div>
+
+      </div>
+    </div>
+
+
+
+  </header>
+
+
+  <section id="headerImage">
+    <div id="mainslider"
+      data-zs-src='["images/slide-1.jpg", "images/slide-2.jpg", "images/slide-3.jpg", "images/slide-4.jpg"]'
+      data-zs-overlay="plain">
+      <div class="ban_caption center">
+        <h5 class="subtitle">Lorem ipsum dolor sit amet</h5>
+        <h1>Lorem ipsum dolor sit amet.</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate, velit. </p>
+        <a href="" class="slider-more">View our Projects</a> <a href="" class="slidermore">Get a Free Quote</a>
+      </div>
+    </div>
+  </section>
+  <section id="category">
+
+    <div class="wrapper">
+      <h3 class="section-title center">Browse Our Services</h3>
+      <div class="row">
+        <div class="box-33">
+          <div class="box-padding">
+            <div class="category-box"><a href="">
+                <article class="sc_intro" style="background: url(img/gettyimages-1362882594-612x612.jpg);"><span
+                    class="sc_intro_inner"><span class="sc_intro_content">
+                      <h4>Bath Remodeling</h4><span class="desc">Get your dream bathroom with a design that makes use of
+                        the available space. </span>
+                    </span></span></article>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="box-33">
+          <div class="box-padding">
+            <div class="category-box"><a href="">
+                <article class="sc_intro" style="background: url(img/gettyimages-1158182576-612x612.jpg);"><span
+                    class="sc_intro_inner"><span class="sc_intro_content">
+                      <h4>DIY Bath Remodeling</h4><span class="desc">Get your dream bathroom with a design that makes
+                        use of the available space. </span>
+                    </span></span></article>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="box-33">
+          <div class="box-padding">
+            <div class="category-box"><a href="">
+                <article class="sc_intro" style="background: url(img/gettyimages-1206612045-612x612.jpg);"><span
+                    class="sc_intro_inner"><span class="sc_intro_content">
+                      <h4>Tub-To-Shower Conversions</h4><span class="desc">By converting your tub to a shower, you can
+                        eliminate wasted space and install.. </span>
+                    </span></span></article>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="clear"></div>
+        <div class="box-33">
+          <div class="box-padding">
+            <div class="category-box"><a href="">
+                <article class="sc_intro" style="background: url(images/category-04.jpg);"><span
+                    class="sc_intro_inner"><span class="sc_intro_content">
+                      <h4>Tub Surrounds</h4><span class="desc">Bathtub walls from the Onyx collection are perfect for
+                        any bathroom. </span>
+                    </span></span></article>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="box-33">
+          <div class="box-padding">
+            <div class="category-box"><a href="">
+                <article class="sc_intro" style="background: url(images/category-05.jpg);"><span
+                    class="sc_intro_inner"><span class="sc_intro_content">
+                      <h4>Shower Base</h4><span class="desc">Shower bases are available both individually and in kits
+                        with our Onyx wall panels. </span>
+                    </span></span></article>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="box-33">
+          <div class="box-padding">
+            <div class="category-box"><a href="">
+                <article class="sc_intro" style="background: url(images/category-06.jpg);"><span
+                    class="sc_intro_inner"><span class="sc_intro_content">
+                      <h4>Vanity Tops</h4><span class="desc">We offer hundreds of size options, 14 bowl styles, as well
+                        as 5/8" and 1" thickness options.</span>
+                    </span></span></article>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="parallex">
+    <div class="parallex-overlay">
+      <div class="wrapper">
+
+        <div class="row">
+          <div class="flex-item">
+
+            <div class="box-50">
+              <div class="box-padding">
+                <div class="box-paddingR">
+                  <div class="sec-title">
+                    <h2> Lorem ipsum dolor sit amet. </h2>
+                  </div>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias commodi nihil sed voluptatibus,
+                    excepturi aperiam tempore voluptas laudantium in? Nobis. </p>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi recusandae cumque atque ipsa non
+                    beatae accusamus id, distinctio repellat inventore!</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="box-50">
+              <div class="box-padding">
+                <div class="box-paddingL">
+                  <img src="img/gettyimages-1410811323-612x612.jpg" alt="" />
+                </div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-padding">
+    <div class="wrapper">
+
+      <div class="row">
+        <div class="box-33">
+          <div class="box-padding">
+            <h3 class="blue">Who We Are?</h3>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam quas vero laboriosam quia, officia
+              mollitia cum quos dignissimos. Impedit non omnis doloribus enim rem vitae vel ad ipsa natus sunt?</p>
+
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam cumque vitae, libero ipsa nam quia
+              cupiditate, expedita voluptas ducimus facilis amet laborum quisquam deserunt! Cum facilis quisquam quaerat
+              modi eum.</p>
+          </div>
+        </div>
+        <div class="box-33">
+          <div class="box-padding">
+            <div class="box-paddingS">
+              <h3 class="blue">What Is The Oynx Collection?</h3>
+              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam quas vero laboriosam quia, officia
+                mollitia cum quos dignissimos. Impedit non omnis doloribus enim rem vitae vel ad ipsa natus sunt?</p>
+
+              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime facere omnis deleniti quae officiis in
+                ratione laboriosam, non, dolorem explicabo fugiat animi quisquam ab ipsum saepe voluptatum nam.
+                Delectus, accusantium!</p>
+
+
+              <div class="clear"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="box-33">
+          <div class="box-padding">
+            <h3 class="blue">Why It Matters?</h3>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam quas vero laboriosam quia, officia
+              mollitia cum quos dignissimos. Impedit non omnis doloribus enim rem vitae vel ad ipsa natus sunt?</p>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maiores inventore, odit repellat aliquam
+              obcaecati provident voluptate ab accusamus facere sunt asperiores laboriosam impedit recusandae distinctio
+              molestias facilis hic repudiandae in?</p>
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+
+
+    </div>
+
+  </section>
+
+  <section id="quickquote">
+    <div class="wrapper">
+
+      <div class="row">
+        <div class="box-25">
+          <div class="box-paddingS">
+            <h3>Want To Get Started</h3>
+            <p>Please give us a call @ <strong>910-212-9030</strong> or use the form below to start the conversation
+              about your next project.</p>
+          </div>
+        </div>
+        <div class="box-25">
+          <div class="box-paddingS">
+            <p>Please enter your Full Name:</p>
+            <div class="box-100"><input class="contact-input" type="text"
+                onblur="if (this.value == '') {this.value = 'First Name';}"
+                onfocus="if(this.value == 'First Name') {this.value = '';}" value="First Name" name="first-name"></div>
+            <div class="box-100"><input class="contact-input" type="text"
+                onblur="if (this.value == '') {this.value = 'Last Name';}"
+                onfocus="if(this.value == 'Last Name') {this.value = '';}" value="Last Name" name="last-name"></div>
+          </div>
+        </div>
+        <div class="box-25">
+          <div class="box-paddingS">
+            <p>Please enter contact details:</p>
+            <div class="box-100"><input class="contact-input" type="text"
+                onblur="if (this.value == '') {this.value = 'Email';}"
+                onfocus="if(this.value == 'Email') {this.value = '';}" value="Email" name="email"></div>
+            <div class="box-100"><input class="contact-input" type="text"
+                onblur="if (this.value == '') {this.value = 'Phone';}"
+                onfocus="if(this.value == 'Phone') {this.value = '';}" value="Phone" name="phone"></div>
+          </div>
+        </div>
+        <div class="box-25">
+          <div class="box-paddingS">
+            <p>I would like to have a call to discuss:</p>
+            <div class="box-100"><select class="contact-select">
+                <option>Select the type of project you interest in? </option>
+                <option>ABC</option>
+                <option>DEF</option>
+                <option>GHI</option>
+                <option>JKL</option>
+                <option>MNO</option>
+                <option>PQR</option>
+                <option>STU</option>
+                <option>Other</option>
+              </select></div>
+            <div class="box-100"><input class="submit-btn" type="button" value="Submit Request"></div>
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+
+
+
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrapper">
+
+      <div class="center">
+        <h3 class="section-title">Lorem ipsum dolor sit amet.</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, quas?</p>
+        <div class="clearH"></div>
+      </div>
+
+      <div class="row">
+        <div class="box-33">
+          <div class="box-padding">
+            <div class="about-box">
+              <div class="about-img"><img src="img/gettyimages-1362882594-612x612.jpg" alt="" width="70" /></div>
+              <h3 class="blue">Lorem ipsum dolor sit amet.</h3>
+              <p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for
+                previewing layouts and visual mockups.</p>
+            </div>
+          </div>
+        </div>
+        <div class="box-33">
+          <div class="box-padding">
+            <div class="about-box">
+              <div class="about-img"><img src="img/gettyimages-1992829750-612x612.jpg" alt="" width="70" /></div>
+              <h3 class="blue">Lorem ipsum dolor sit amet.</h3>
+              <p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for
+                previewing layouts and visual mockups.</p>
+            </div>
+          </div>
+        </div>
+        <div class="box-33">
+          <div class="box-padding">
+            <div class="about-box">
+              <div class="about-img"><img src="img/gettyimages-165817153-612x612.jpg" alt="" width="70" /></div>
+              <h3 class="blue">Lorem ipsum dolor sit amet.</h3>
+              <p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for
+                previewing layouts and visual mockups.</p>
+            </div>
+          </div>
+        </div>
+        <div class="clear"></div>
+
+
+
+      </div>
+
+    </div>
+  </section>
+
+  <section id="featured">
+    <div class="clients">
+      <div class="items">
+        <div class="featured-img"><img src="img/gettyimages-1350085520-612x612.jpg" alt=" " /></div>
+        <div class="featured-img"><img src="img/gettyimages-1350085520-612x612.jpg" alt=" " /></div>
+        <div class="featured-img"><img src="img/gettyimages-1350085520-612x612.jpg" alt=" " /></div>
+        <div class="featured-img"><img src="img/gettyimages-1350085520-612x612.jpg" alt=" " /></div>
+        <div class="featured-img"><img src="img/gettyimages-1350085520-612x612.jpg" alt=" " /></div>
+        <div class="featured-img"><img src="img/gettyimages-1350085520-612x612.jpg" alt=" " /></div>
+        <div class="featured-img"><img src="img/gettyimages-1350085520-612x612.jpg" alt=" " /></div>
+        <div class="featured-img"><img src="img/gettyimages-1350085520-612x612.jpg" alt=" " /></div>
+        <div class="featured-img"><img src="img/gettyimages-1350085520-612x612.jpg" alt=" " /></div>
+      </div>
+
+    </div>
+  </section>
+
+
+
+  <section id="testimonials">
+    <div class="testimonial-overlay center">
+
+      <div class="wrapper">
+
+        <h3 class="section-title">Don’t just take our word for it, here’s what some of our customers say… </h3>
+        <h5 class="subtitle uppercase">Testimonials</h5>
+        <div class="clearHH"></div>
+
+
+        <div class="review-wrap">
+          <div class="cap-top"><span class="quote-mark"><svg xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="35px" height="28px"
+                viewBox="0 0 35 28" enable-background="new 0 0 35 28" xml:space="preserve">
+                <g>
+                  <path fill="#231E5D" d="M11.75,3.8c1.266,1.7,1.9,4.15,1.9,7.35c0,2.935-0.65,5.634-1.95,8.1c-1.3,2.467-3.217,4.934-5.75,7.4
+			c-0.067,0.067-0.167,0.1-0.3,0.1c-0.2,0-0.367-0.1-0.5-0.3c-0.134-0.2-0.134-0.365,0-0.5c3.266-3.333,4.9-7.266,4.9-11.8
+			c0-1.866-0.334-3.233-1-4.1c-0.6,1-1.767,1.5-3.5,1.5c-1.467,0-2.634-0.45-3.5-1.35c-0.867-0.9-1.3-2.115-1.3-3.65
+			c0-1.666,0.516-2.965,1.55-3.9c1.033-0.933,2.45-1.4,4.25-1.4C8.75,1.25,10.483,2.1,11.75,3.8z"></path>
+                  <path fill="#231E5D" d="M32.349,3.8c1.266,1.7,1.9,4.15,1.9,7.35c0,2.935-0.65,5.634-1.95,8.1c-1.3,2.467-3.217,4.934-5.75,7.4
+			c-0.067,0.067-0.167,0.1-0.3,0.1c-0.2,0-0.367-0.1-0.5-0.3c-0.135-0.2-0.135-0.365,0-0.5c3.266-3.333,4.9-7.266,4.9-11.8
+			c0-1.866-0.335-3.233-1-4.1c-0.601,1-1.768,1.5-3.5,1.5c-1.468,0-2.635-0.45-3.5-1.35c-0.867-0.9-1.301-2.115-1.301-3.65
+			c0-1.666,0.516-2.965,1.551-3.9c1.032-0.933,2.449-1.4,4.25-1.4C29.349,1.25,31.083,2.1,32.349,3.8z"></path>
+                </g>
+              </svg></span></div>
+          <div id="reviews" class="carousel slide" data-ride="carousel">
+
+            <div class="carousel-inner">
+
+              <div class="item">
+                <blockquote>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                  labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                  ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
+                  qui officia deserunt mollit anim id est laborum.</blockquote>
+                <div class="client-name center">
+                  <h5 class="subtitle">Celia and Matthew</h5> <span class="area">Parklands Quendon Hall</span>
+                </div>
+              </div>
+
+              <div class="item active">
+                <blockquote>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                  labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                  ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
+                  qui officia deserunt mollit anim id est laborum.</blockquote>
+                <div class="client-name center">
+                  <h5 class="subtitle">Jon and Louise</h5> <span class="area">Downhall</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+
+
+        <div class="clear"></div>
+      </div>
+    </div>
+  </section>
+  <section id="awards">
+    <div class="wrapper">
+      <ul class="awards">
+        <li>
+          <div class="award-box">
+            <div class="ratings"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                class="fa fa-star"></i><i class="fa fa-star"></i></div>
+            <img src="images/awards-google.png" alt="" />
+          </div>
+        </li>
+        <li>
+          <div class="award-box">
+            <div class="ratings"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                class="fa fa-star"></i><i class="fa fa-star"></i></div>
+            <img src="images/awards-facebook.png" alt="" />
+          </div>
+        </li>
+        <li>
+          <div class="award-box">
+
+            <img src="images/awards-bbb.png" alt="" />
+          </div>
+        </li>
+        <li>
+          <div class="award-box">
+            <div class="ratings"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                class="fa fa-star"></i><i class="fa fa-star"></i></div>
+            <img src="images/awards-home-advisor.png" alt="" />
+          </div>
+        </li>
+        <li>
+          <div class="award-box">
+            <div class="ratings"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+                class="fa fa-star"></i><i class="fa fa-star"></i></div>
+            <img src="images/awards-houzz.png" alt="" />
+          </div>
+        </li>
+
+
+      </ul>
+    </div>
+  </section>
+
+
+  <section id="blog">
+    <div class="wrapper">
+      <div class="wrap center">
+        <h3 class="section-title">Resources & Blogs</h3>
+      </div>
+
+      <div class="clearH"></div>
+      <div class="row">
+        <div class="box-33">
+          <div class="box-padding">
+            <div class="blog-post-info">
+              <div class="blog-post-img"><img src="img/gettyimages-2151904502-612x612.jpg" class="img-responsive"
+                  alt=""></div>
+              <div class="blog-post-text">
+                <h4 class="post-tit"><a href="">Lorem ipsum dolor sit amet.</a></h4>
+                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                  et dolore magna.</p>
+                <a href="" class="more">read More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="box-33">
+          <div class="box-padding">
+            <div class="blog-post-info">
+              <div class="blog-post-img"><img src="img/gettyimages-2151904502-612x612.jpg" class="img-responsive"
+                  alt=""></div>
+              <div class="blog-post-text">
+                <h4 class="post-tit"><a href="">Lorem ipsum dolor sit amet. </a></h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                  et dolore magna.</p>
+                <a href="" class="more">read More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="box-33">
+          <div class="box-padding">
+            <div class="blog-post-info">
+              <div class="blog-post-img"><img src="img/gettyimages-2151904502-612x612.jpg" class="img-responsive"
+                  alt=""></div>
+              <div class="blog-post-text">
+                <h4 class="post-tit"><a href="">Lorem ipsum dolor sit amet.</a></h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                  et dolore magna.</p>
+                <a href="" class="more">read More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="footer">
+
+    <div class="footer-middle">
+      <div class="wrapper">
+        <div class="row">
+
+          <div class="box-40">
+            <div class="box-paddingS">
+              <div class="box-paddingR">
+                <div class="contact-form-home">
+                  <h4>Contact Us</h4>
+                  <p>If you have any questions about our services and to check our availability please complete the form
+                    below. </p>
+                  <form id="contact-form" action=" " method="post">
+                    <div class="contact-form-wrapper">
+                      <div class="row">
+                        <div class="box-50">
+                          <div class="box-paddingS">
+                            <input type="text" name="full_name" value="Full Name*"
+                              onblur="if(this.value=='') this.value='Full Name*'"
+                              onfocus="if(this.value =='Full Name*' ) this.value=''" class="inputbox">
+                          </div>
+                        </div>
+                        <div class="box-50">
+                          <div class="box-paddingS">
+                            <input type="email" name="email" value="Email Address*"
+                              onblur="if(this.value=='') this.value='Email Address*'"
+                              onfocus="if(this.value =='Email Address*' ) this.value=''" class="inputbox">
+                          </div>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="box-50">
+                          <div class="box-paddingS">
+                            <input type="phone" name="phone" value="Phone Number*"
+                              onblur="if(this.value=='') this.value='Phone Number*'"
+                              onfocus="if(this.value =='Phone Number*' ) this.value=''" class="inputbox">
+                          </div>
+                        </div>
+                        <div class="box-50">
+                          <div class="box-paddingS">
+                            <select class="selectbox">
+                              <option>Type of Project </option>
+                              <option>Walk-in Shower</option>
+                              <option>Tub To Shower Conversion</option>
+                              <option>Low Profile Shower</option>
+                              <option>Complete Bath Remodel</option>
+                              <option>Bathtub System</option>
+                              <option>Shower To Tub Conversion</option>
+                              <option>Aging In Place Bathroom</option>
+                              <option>Other</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+
+                      <div class="box-100"><input type="text" name="Message" value="Your Message.."
+                          onblur="if(this.value=='') this.value='Your Message..'"
+                          onfocus="if(this.value =='Your Message..' ) this.value=''" class="textarea"></div>
+                      <div class="box-100"><input name="Submit" type="submit" class="btn-submit" value="Submit"></div>
+                      <div class="clear"> </div>
+                    </div>
+                  </form>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="box-60">
+            <div class="box-padding">
+              <div class="box-paddingL">
+
                 <div class="row">
-                    <div class="box-50">
-                        <div class="box-paddingS">
-                            <div class="newsflash"> Call Landmark Homes for <span class="txt-rotate" data-period="2000"
-                                    data-rotate='[ "Onyx Collection",  "Bath Remodeling" , "DIY Bath Remodeling"]'></span>
-                            </div>
-                        </div>
+                  <div class="box-50">
+                    <div class="box-padding">
+                      <h4>Get in <span class="yellow">Touch</span></h4>
+
+                      <ul class="contact-line">
+                        <li class="icon-map"> <span>CHAS</span> </li>
+                        <li class="icon-phone"> <span>Phone: 910-212-9030</span></li>
+                        <li class="icon-email"> <span>Email: xyz@gmail.com</span></li>
+                      </ul>
+
+
+                      <div class="clear"></div>
+
+                      <div class="socialmedia">
+                        <ul class="icons">
+                          <li><a class="fa fa-facebook" href="" title="Facebook"><span></span></a></li>
+                          <li><a class="fa fa-instagram" href="" title="Instagram"><span></span></a></li>
+                          <li><a class="fa fa-linkedin" href="" title="Linkedin"><span></span></a></li>
+                          <li><a class="fa fa-youtube" href="" title="Youtube"><span></span></a></li>
+
+                        </ul>
+                      </div>
                     </div>
-                    <div class="box-50">
-                        <div class="box-paddingS">
-                            <div class="socials">
-                                <ul class="toplinks">
-                                    <li><a class="topBar" href="tel:9102129030"><i class="fa fa-phone"></i> Talk with an
-                                            Expert: <span style="font-size: 15px;font-weight: 700">9102129030</span></a>
-                                    </li>
+                  </div>
+                  <div class="box-50">
+                    <div class="box-padding">
+                      <h4>Sign up for our <span class="yellow">newsletter!</span></h4>
+                      <p>Join our newsletter for upcoming trends, special offers and more!</p>
+                      <div class="clear"></div>
+                      <form action="" id="newsletter-box">
+                        <input class="input-text" type="text"
+                          onblur="if (this.value == '') {this.value = 'Enter your email address';}"
+                          onfocus="if(this.value == 'Enter your email address') {this.value = '';}"
+                          value="Enter your email address" name="email"> <input class="input-submit" type="button"
+                          value="Sign Up" name="">
+                        <div class="clear"></div>
+                      </form>
 
-                                    <li><a href="#" target="_blank"><i class="fa fa-envelope" alt="Email"></i></a></li>
-                                    <li><a href="" target="_blank"><i class="fa fa-facebook" alt="Facebook"></i></a>
-                                    </li>
-                                    <li><a href="" target="_blank"><i class="fa fa-linkedin" alt="Linkedin"></i></a>
-                                    </li>
-                                    <li><a href="" target="_blank"><i class="fa fa-instagram" alt="Instagram"></i></a>
-                                    </li>
-                                    <li><a href="" target="_blank"><i class="fa fa-youtube" alt="Youtube"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="space"></div>
-                        </div>
                     </div>
-                    <div class="space"></div>
-                </div>
-            </div>
-        </div>
-        <div class="wrapper">
-            <div class="header-wrap">
-                <div class="logo"><a href="index.html"><img src="images/logo DG 1.jpg" class="img-responsive"
-                            alt="logo"></a></div>
+                  </div>
+                  <div class="clear"></div>
 
-                <div class="head-col">
-
-                    <div id="topmenu">
-
-                        <nav id="topnav" class="moduletable_dropdown">
-                            <ul class="menu">
-                                <li class="current-menu-item"><a href="">Home</a></li>
-                                <li><a href="">About</a></li>
-                                <li class="parent"><a href="">Services</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="">Bathroom Remodeling</a></li>
-                                        <li><a href="">Tub-To-Shower Conversions</a></li>
-                                        <li><a href="">Tub Surrounds</a></li>
-                                        <li><a href="">Shower Base</a></li>
-                                        <li><a href="">Vanity Tops</a></li>
-                                    </ul>
-                                </li>
-                                <li class="parent"><a href="">Onyx</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="">Gloss Color Options</a></li>
-                                        <li><a href="">Shower Bases</a></li>
-                                        <li><a href="">Shower Wall Panels</a></li>
-                                        <li><a href="">Lavatories &amp; Vanities</a></li>
-                                        <li><a href="">Accessories &amp; Trim</a></li>
-                                        <li><a href="">Installation Guides</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="">Gallery</a></li>
-                                <li class="parent"><a href="">Locations</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="">Chesterfield</a></li>
-                                        <li><a href="">Midlothian</a></li>
-                                        <li><a href="">Richmond</a></li>
-                                        <li><a href="">Crozier</a></li>
-                                        <li><a href="">Ashland</a></li>
-                                        <li><a href="">Mechanicsville</a></li>
-                                        <li><a href="">Studeley</a></li>
-                                        <li><a href="">Glen Allen Henrico</a></li>
-                                    </ul>
-                                </li>
-
-                                <li><a href="">Contact</a></li>
-                                <li class="apply-online"><a href="">Get a Free Quote</a></li>
-                            </ul>
-                        </nav>
-
-                        <div class="space"></div>
-                    </div>
                 </div>
 
 
-                <div class="space"></div>
 
+
+
+              </div>
             </div>
+          </div>
+
+
+          <div class="clear"></div>
         </div>
 
 
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="wrapper">
 
-    </header>
+        <div class="row">
+          <div class="box-70">
+            <div class="box-paddingS">
+              © 2025 Digital All Rights Reserved.
+            </div>
+          </div>
+          <div class="box-30">
+            <div class="box-paddingS alignright">
+              <a href="">Privacy Policy</a> &nbsp; – &nbsp; <a href="">Disclaimer</a> &nbsp; – &nbsp; <a href="">Terms
+                of Use</a>
+            </div>
+          </div>
+          <div class="clear"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
 </body>
+<script type="text/javascript" src="js/jquery.zoomslider.min.js"></script>
 
 </html>
