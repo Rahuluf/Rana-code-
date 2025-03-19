@@ -27,7 +27,6 @@ The **SEO-Based Website** is designed to improve search engine rankings and enha
   
 ## 🏗️ Tech Stack
 - **Frontend:** HTML5, CSS3, JavaScript
-- **Frameworks/Libraries:** React.js
 - **Deployment:** Netlify
 
 ## 🚀 Installation & Setup
