@@ -5,7 +5,7 @@ const { getMyBooks, addBookToMyList, updateStatus, updateRating } = require('../
 
 router.use(auth);
 router.get('/', getMyBooks);
-router.post('/:bookId', addBookToMyList);
+router.post('/add-book', addBookToMyList);
 router.patch('/:bookId/status', updateStatus);
 router.patch('/:bookId/rating', updateRating);
 
